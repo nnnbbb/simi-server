@@ -1,0 +1,14 @@
+.git
+dist
+logs
+node_modules
+.dockerignore
+.env
+.eslintrc.js
+.gitignore
+.prettierrc
+CHANGELOG.md
+Dockerfile
+ormconfig.json
+pm2.config.js
+README.md
