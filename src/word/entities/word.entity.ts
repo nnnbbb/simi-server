@@ -3,7 +3,7 @@ import { Column, Entity } from "typeorm";
 import { Base } from "../../common/entities/base.entity";
 
 
-@Entity({ name: 'word_book' })
+@Entity({ name: 'word' })
 export class WordBook extends Base {
   @Column({
     comment: "单词",

@@ -1,9 +1,20 @@
 import { Module } from '@nestjs/common';
-import { SentenceService } from './sentence.service';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Sentence } from './entities/sentence.entity';
 import { SentenceController } from './sentence.controller';
+import { SentenceService } from './sentence.service';
 
 @Module({
-  controllers: [SentenceController],
-  providers: [SentenceService]
+  imports: [
+    TypeOrmModule.forFeature([
+      Sentence,
+    ]),
+  ],
+  controllers: [
+    SentenceController,
+  ],
+  providers: [
+    SentenceService,
+  ],
 })
-export class SentenceModule {}
+export class SentenceModule { }

@@ -7,7 +7,7 @@ export default registerAs('database', () => {
     port: parseInt(process.env.DATABASE_PORT),
     username: process.env.DATABASE_USERNAME,
     password: process.env.DATABASE_PASSWORD,
-    database: 'glossa',
+    database: 'simi',
     // timezone: "Z",
     extra: {
       charset: 'utf8mb4_unicode_ci'
