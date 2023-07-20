@@ -1,7 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsNotEmpty, IsString } from "class-validator";
 import { EntityToDto } from "../../common/helper/entity-to-dto.helper";
-import { WordBook } from "../entities/word.entity";
+import { Word } from "../entities/word.entity";
 
 export class CreateWordBookDto {
   @ApiProperty({
@@ -14,4 +14,4 @@ export class CreateWordBookDto {
 }
 
 
-export class WordResDto extends EntityToDto(WordBook) { }
+export class WordResDto extends EntityToDto(Word) { }

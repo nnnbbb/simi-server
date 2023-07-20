@@ -1,4 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import dayjs from 'dayjs';
 import fetch from 'node-fetch';
 import { DOMParser } from "xmldom";
 import xpath from 'xpath';
@@ -15,7 +16,10 @@ export class WordService {
 
   async create(dto: CreateWordBookDto) {
     let word = await this.getWord(dto.word)
-    return this.wordRepository.findOrInsert({ ...word }, ['word'])
+    return this.wordRepository.findOrInsert({
+      ...word,
+      recordTime: dayjs(Date.now()).format("YYYY-MM-DD"),
+    }, ['word'])
   }
 
   findAll() {
