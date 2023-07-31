@@ -67,9 +67,14 @@ export class WordService {
    * @param html 
    */
   phoneticSymbol(html: string) {
-    let reg = />美\s+<span class="phonetic">([\S\W\]]+?)</g;
-    let result = reg.exec(html);
-    return result[1]
+    try {
+      let reg = />美\s+<span class="phonetic">([\S\W\]]+?)</g;
+      let result = reg.exec(html);
+      return result[1]
+
+    } catch (err) {
+      return ""
+    }
   }
   /**
    * @description: 获取中文

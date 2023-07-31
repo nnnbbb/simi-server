@@ -6,13 +6,14 @@ import { UpdateWordBookDto } from './dto/update-word.dto';
 import { WordService } from './word.service';
 
 @Controller('word')
-@ApiTags("单词本")
+@ApiTags("单词")
 export class WordController {
   constructor(
     private readonly wordService: WordService,
   ) { }
 
   @Post()
+  @ApiOperation({ summary: "创建" })
   create(@Body() dto: CreateWordBookDto) {
     return this.wordService.create(dto);
   }
@@ -33,6 +34,7 @@ export class WordController {
   }
 
   @Delete(':id')
+  @ApiOperation({ summary: "删除" })
   remove(@Param('id') id: string) {
     return this.wordService.remove(+id);
   }
