@@ -1,7 +1,9 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiQuery, ApiTags } from '@nestjs/swagger';
+import { CustomQuery } from '../common/decorators/query.decorator';
 import { SuggestDto } from '../suggest/dto/suggest.dto';
-import { CreateWordBookDto } from './dto/create-word.dto';
+import { CreateWordDto } from './dto/create-word.dto';
+import { QueryWordDto } from './dto/query-word.dto';
 import { UpdateWordBookDto } from './dto/update-word.dto';
 import { WordService } from './word.service';
 
@@ -14,13 +16,15 @@ export class WordController {
 
   @Post()
   @ApiOperation({ summary: "创建" })
-  create(@Body() dto: CreateWordBookDto) {
+  create(@Body() dto: CreateWordDto) {
     return this.wordService.create(dto);
   }
 
   @Get()
-  findAll() {
-    return this.wordService.findAll();
+  @ApiOperation({ summary: "列表" })
+  @ApiQuery({ type: QueryWordDto })
+  findAll(@CustomQuery() query: QueryWordDto) {
+    return this.wordService.findAll(query);
   }
 
   @Get(':id')

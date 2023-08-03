@@ -3,7 +3,7 @@ import { IsNotEmpty, IsString } from "class-validator";
 import { EntityToDto } from "../../common/helper/entity-to-dto.helper";
 import { Word } from "../entities/word.entity";
 
-export class CreateWordBookDto {
+export class CreateWordDto {
   @ApiProperty({
     description: "单词",
     required: true,

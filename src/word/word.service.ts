@@ -3,7 +3,8 @@ import dayjs from 'dayjs';
 import fetch from 'node-fetch';
 import { DOMParser } from "xmldom";
 import xpath from 'xpath';
-import { CreateWordBookDto } from './dto/create-word.dto';
+import { CreateWordDto } from './dto/create-word.dto';
+import { QueryWordDto } from './dto/query-word.dto';
 import { UpdateWordBookDto } from './dto/update-word.dto';
 import { WordRepository } from './word.repository';
 
@@ -14,7 +15,7 @@ export class WordService {
     private readonly wordRepository: WordRepository,
   ) { }
 
-  async create(dto: CreateWordBookDto) {
+  async create(dto: CreateWordDto) {
     let word = await this.getWord(dto.word)
     return this.wordRepository.findOrInsert({
       ...word,
@@ -22,7 +23,7 @@ export class WordService {
     }, ['word'])
   }
 
-  findAll() {
+  findAll(query: QueryWordDto) {
     return this.wordRepository.find()
   }
 
