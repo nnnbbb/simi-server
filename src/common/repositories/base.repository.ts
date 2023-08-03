@@ -88,8 +88,10 @@ export class BaseRepository<T> extends Repository<T> {
     if (n > 1) {
       throw new Error(`Not the only one entity`)
     }
-    let entity = await this.findOneBy(conditions)
-    if (!entity) {
+    let entity = await this.findOne({ where: conditions, withDeleted: true })
+    if (entity) {
+      await this.restore(conditions)
+    } else {
       entity = await this.createOne(entityLike)
     }
     return entity
