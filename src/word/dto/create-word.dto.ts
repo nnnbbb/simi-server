@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsNotEmpty, IsString } from "class-validator";
+import { IsNotEmpty, IsOptional, IsString } from "class-validator";
 import { EntityToDto } from "../../common/helper/entity-to-dto.helper";
 import { Word } from "../entities/word.entity";
 
@@ -11,6 +11,14 @@ export class CreateWordDto {
   @IsString()
   @IsNotEmpty()
   word: string
+
+  @ApiProperty({
+    description: "中文意思",
+    required: false,
+  })
+  @IsString()
+  @IsOptional()
+  chinese: string
 }
 
 

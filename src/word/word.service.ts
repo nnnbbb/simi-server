@@ -19,6 +19,7 @@ export class WordService {
     let word = await this.getWord(dto.word)
     return this.wordRepository.findOrInsert({
       ...word,
+      chinese: dto.chinese ? dto.chinese : word.chinese,
       recordTime: dayjs(Date.now()).format("YYYY-MM-DD"),
     }, ['word'])
   }
