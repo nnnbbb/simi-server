@@ -83,21 +83,26 @@ export class WordService {
    * @param html 
    */
   chinese(html: string) {
-    // 匹配中文意思
-    let reg2 = /<div[^>]*class="trans-container"[^>]*>([^]*?)<\/div>/g;
-    let result2 = reg2.exec(html);
+    try {
+      // 匹配中文意思
+      let reg2 = /<div[^>]*class="trans-container"[^>]*>([^]*?)<\/div>/g;
+      let result2 = reg2.exec(html);
 
-    let xml = result2[1]
-    let doc = new DOMParser({
-      errorHandler: {
-        warning: function (w) { },
-        error: function (e) { },
-        fatalError: function (e) { console.error(e) }
-      }
-    }).parseFromString(xml)
-    let nodes = xpath.select("//li", doc) as any[]
-    let chinese = nodes.map(node => node.firstChild.data)
-    return chinese
+      let xml = result2[1]
+      let doc = new DOMParser({
+        errorHandler: {
+          warning: function (w) { },
+          error: function (e) { },
+          fatalError: function (e) { console.error(e) }
+        }
+      }).parseFromString(xml)
+      let nodes = xpath.select("//li", doc) as any[]
+      let chinese = nodes.map(node => node.firstChild.data)
+      return chinese
+
+    } catch (err) {
+      return []
+    }
   }
 
 
