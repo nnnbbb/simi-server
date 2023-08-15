@@ -26,8 +26,8 @@ async function bootstrap() {
 
   // 文档
   const options = new DocumentBuilder()
-    .setTitle('Glossa')
-    .setDescription('Glossa')
+    .setTitle('Simi')
+    .setDescription('Simi')
     .setVersion('1.0')
     .addSecurity("token", {
       type: 'apiKey',
