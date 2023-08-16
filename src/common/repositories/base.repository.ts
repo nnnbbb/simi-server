@@ -1,4 +1,5 @@
 import assert from "assert";
+import _ from "lodash";
 import { asyncPool, filterByKeys, filterWhere } from "src/utils/common";
 import { DeepPartial, FindOptionsWhere, Repository, TypeORMError } from "typeorm";
 import { QueryDeepPartialEntity } from "typeorm/query-builder/QueryPartialEntity";
@@ -93,6 +94,29 @@ export class BaseRepository<T> extends Repository<T> {
       await this.restore(conditions)
     } else {
       entity = await this.createOne(entityLike)
+    }
+    return entity
+  }
+  /**
+   * @description: 插入或更新
+   * @param entityLike 
+   * @param conflictPathsOrOptions 
+   */
+  async insertOrUpdate(entityLike: DeepPartial<T> & QueryDeepPartialEntity<T>, conflictPathsOrOptions: DeepPartial<keyof T>[]) {
+    let conditions = filterByKeys(entityLike, conflictPathsOrOptions)
+    let n = await this.count({ where: conditions })
+    if (n > 1) {
+      throw new Error(`Not the only one entity`)
+    }
+    let entity = await this.findOne({ where: conditions, withDeleted: true })
+
+    const newEntityLike = _.pick(entityLike, _.keys(this.metadata.propertiesMap)) as DeepPartial<T> & QueryDeepPartialEntity<T>
+
+    if (entity) {
+      await this.restore(conditions)
+      await this.update(conditions, newEntityLike)
+    } else {
+      entity = await this.createOne(newEntityLike)
     }
     return entity
   }

@@ -17,7 +17,7 @@ export class WordService {
 
   async create(dto: CreateWordDto) {
     let word = await this.getWord(dto.word)
-    return this.wordRepository.findOrInsert({
+    return this.wordRepository.insertOrUpdate({
       ...word,
       chinese: dto.chinese ? dto.chinese : word.chinese,
       recordTime: dayjs(Date.now()).format("YYYY-MM-DD"),
