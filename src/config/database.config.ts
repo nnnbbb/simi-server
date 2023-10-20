@@ -15,7 +15,7 @@ export default registerAs('database', () => {
     autoLoadEntities: true
     // logging: true
   };
-  if (process.env.DATABASE_HOST === '127.0.0.1') {
+  if (process.env.DATABASE_HOST === '127.0.0.1' && process.env.NODE_ENV !== 'production') {
     return { ...config, synchronize: true };
   } else {
     return config;

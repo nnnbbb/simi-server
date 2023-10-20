@@ -11,7 +11,7 @@ export class SuggestController {
 
   @Get()
   @ApiOperation({ summary: "单词提示" })
-  async suggest(@Query() dto: SuggestDto) {
+  async get(@Query() dto: SuggestDto) {
     let f = await fetch(`https://dict.youdao.com/suggest?num=5&ver=3.0&doctype=json&cache=false&le=en&q=${dto.word}`)
     let res = await f.json()
     return { ...res }

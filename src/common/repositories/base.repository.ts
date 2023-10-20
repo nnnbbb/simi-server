@@ -103,7 +103,7 @@ export class BaseRepository<T> extends Repository<T> {
    * @param conflictPathsOrOptions 
    */
   async insertOrUpdate(entityLike: DeepPartial<T> & QueryDeepPartialEntity<T>, conflictPathsOrOptions: DeepPartial<keyof T>[]) {
-    let conditions = filterByKeys(entityLike, conflictPathsOrOptions)
+    let conditions = _.pick(entityLike, conflictPathsOrOptions) as FindOptionsWhere<T>
     let n = await this.count({ where: conditions })
     if (n > 1) {
       throw new Error(`Not the only one entity`)

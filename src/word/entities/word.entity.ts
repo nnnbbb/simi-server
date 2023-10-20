@@ -25,4 +25,10 @@ export class Word extends Base {
     type: "date",
   })
   recordTime: string
+
+  @Column({
+    comment: "记忆次数",
+    default: '0'
+  })
+  memoryTimes: string
 }

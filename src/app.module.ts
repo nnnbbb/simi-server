@@ -14,6 +14,7 @@ import { RecordModule } from './record/record.module';
 import { SentenceModule } from './sentence/sentence.module';
 import { SuggestModule } from './suggest/suggest.module';
 import { WordModule } from './word/word.module';
+import { UserModule } from './user/user.module';
 
 
 @Module({
@@ -40,6 +41,7 @@ import { WordModule } from './word/word.module';
     WordModule,
     SentenceModule,
     RecordModule,
+    UserModule,
   ],
   controllers: [
     AppController

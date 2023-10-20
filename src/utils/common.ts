@@ -1,3 +1,4 @@
+import crypto from "crypto";
 import { FindOptionsWhere } from "typeorm";
 
 /**
@@ -50,4 +51,14 @@ export function filterByKeys(obj: any, keys = []) {
     }
   })
   return filtered
+}
+
+export function randomString(n: number = 32) {
+  const s = crypto.randomBytes(n).toString('hex')
+  return s
+}
+
+export function md5(s: string) {
+  const str = crypto.createHash('md5').update(s).digest("hex")
+  return str
 }
