@@ -3,6 +3,7 @@ import _ from 'lodash';
 import { In } from 'typeorm';
 import { WordRepository } from '../word/word.repository';
 import { MemoryDto } from './dto/memory.dto';
+import { QueryMemoryDto } from './dto/query-memory.dto';
 import { QueryRecordDto } from './dto/query-record.dto';
 
 @Injectable()
@@ -28,8 +29,12 @@ export class RecordService {
     return { list: res }
   }
 
-  async getMemory() {
+  async getMemory(dto: QueryMemoryDto) {
     let sql = this.wordRepository.createQueryBuilder("word").limit(5)
+
+    if (dto.recordTime) {
+      sql.andWhere("word.recordTime = :recordTime", { recordTime: dto.recordTime })
+    }
 
     let words = await sql.orderBy({ memoryTimes: "ASC" }).getMany()
 

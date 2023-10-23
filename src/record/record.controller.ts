@@ -4,6 +4,7 @@ import { CustomResponse } from '../common/decorators/custom-response.decorator';
 import { CustomQuery } from '../common/decorators/query.decorator';
 import { WordResDto } from '../word/dto/create-word.dto';
 import { MemoryDto } from './dto/memory.dto';
+import { QueryMemoryDto } from './dto/query-memory.dto';
 import { QueryRecordDto, QueryRecordResDto } from './dto/query-record.dto';
 import { RecordService } from './record.service';
 
@@ -24,10 +25,11 @@ export class RecordController {
   }
 
   @Get('memory')
-  @ApiOperation({ summary: "获取需要记忆的单词" })
+  @ApiQuery({ type: QueryMemoryDto })
   @CustomResponse({ type: WordResDto })
-  getMemory() {
-    return this.recordService.getMemory()
+  @ApiOperation({ summary: "获取需要记忆的单词" })
+  getMemory(@CustomQuery() dto: QueryMemoryDto) {
+    return this.recordService.getMemory(dto)
   }
 
   @Post('memory')
