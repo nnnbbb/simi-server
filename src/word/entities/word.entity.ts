@@ -17,8 +17,15 @@ export class Word extends Base {
 
   @Column({
     comment: "中文",
+    length: 1000,
   })
   chinese: string
+
+  @Column({
+    comment: "中文",
+    default: "",
+  })
+  sentence: string
 
   @Column({
     comment: "记录时间",

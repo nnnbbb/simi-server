@@ -19,6 +19,12 @@ export class CreateWordDto {
   @IsString()
   @IsOptional()
   chinese: string
+
+  @ApiProperty({
+    description: "例句",
+  })
+  @IsString()
+  sentence: string
 }
 
 
