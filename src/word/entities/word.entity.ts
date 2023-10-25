@@ -35,7 +35,7 @@ export class Word extends Base {
 
   @Column({
     comment: "记忆次数",
-    default: '0'
+    default: 0
   })
-  memoryTimes: string
+  memoryTimes: number
 }

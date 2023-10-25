@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import _ from 'lodash';
 import { In } from 'typeorm';
 import { WordRepository } from '../word/word.repository';
 import { MemoryDto } from './dto/memory.dto';
@@ -30,17 +29,15 @@ export class RecordService {
   }
 
   async getMemory(dto: QueryMemoryDto) {
-    let sql = this.wordRepository.createQueryBuilder("word").limit(5)
+    let sql = this.wordRepository.createQueryBuilder("word")
 
     if (dto.recordTime) {
       sql.andWhere("word.recordTime = :recordTime", { recordTime: dto.recordTime })
     }
 
-    let words = await sql.orderBy({ memoryTimes: "ASC" }).getMany()
+    let word = await sql.orderBy({ memoryTimes: "ASC" }).getOne()
 
-    words = _.orderBy(words, word => Number(word.memoryTimes), ['asc']);
-
-    return _.first(words)
+    return word
   }
 
   memory(dto: MemoryDto) {
