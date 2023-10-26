@@ -20,6 +20,7 @@ export class WordService {
     return this.wordRepository.insertOrUpdate({
       ...word,
       chinese: dto.chinese ? dto.chinese : word.chinese,
+      sentence: dto.sentence,
       recordTime: dayjs(Date.now()).format("YYYY-MM-DD"),
     }, ['word'])
   }
@@ -93,7 +94,10 @@ export class WordService {
         errorHandler: {
           warning: function (w) { },
           error: function (e) { },
-          fatalError: function (e) { console.error(e) }
+          fatalError: function (e) {
+            // eslint-disable-next-line no-console
+            console.error(e)
+          }
         }
       }).parseFromString(xml)
       let nodes = xpath.select("//li", doc) as any[]
