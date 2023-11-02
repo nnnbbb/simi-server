@@ -22,6 +22,7 @@ export class WordService {
       chinese: dto.chinese ? dto.chinese : word.chinese,
       sentence: dto.sentence,
       recordTime: dayjs(Date.now()).format("YYYY-MM-DD"),
+      memoryTimes: 0,
     }, ['word'])
   }
 
