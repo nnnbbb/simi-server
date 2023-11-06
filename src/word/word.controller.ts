@@ -1,5 +1,7 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Header, HttpStatus, Param, Patch, Post, Query, Res } from '@nestjs/common';
 import { ApiOperation, ApiQuery, ApiTags } from '@nestjs/swagger';
+import { Response } from 'express';
+import fetch from 'node-fetch';
 import { CustomQuery } from '../common/decorators/query.decorator';
 import { SuggestDto } from '../suggest/dto/suggest.dto';
 import { CreateWordDto } from './dto/create-word.dto';
@@ -48,4 +50,14 @@ export class WordController {
   async phoneticSymbol(@Query() dto: SuggestDto) {
     return this.wordService.getWord(dto.word)
   }
+
+  @Get('dictvoice/:word')
+  @ApiOperation({ summary: "获取有道发音" })
+  @Header('Content-Type', 'audio/mpeg; charset=binary')
+  async getWordDictvoice(@Res() res: Response, @Param('word') word: string) {
+    const url = `https://dict.youdao.com/dictvoice?type=0&audio=${word}`;
+    const blob = await fetch(url).then(x => x.buffer());
+    res.status(HttpStatus.OK).send(blob);
+  }
+
 }
